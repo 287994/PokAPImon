@@ -16,7 +16,7 @@ const opciones: {
     id: "crear-sala",
     titulo: "Empezar sala PVP",
     descripcion: "Crea una sala y espera a tu rival",
-    icono: "⚔️",
+    icono: "",
     fondo: "#d7263d",
     texto: "#ffffff",
   },
@@ -24,7 +24,7 @@ const opciones: {
     id: "unirse-sala",
     titulo: "Unirse a sala PVP",
     descripcion: "Entra con el código de una sala",
-    icono: "🚪",
+    i
     fondo: "#1d2b4f",
     texto: "#ffffff",
   },
@@ -85,7 +85,7 @@ const estilos = `
     padding: 0.5rem 1rem;
     border: 0;
     border-radius: 999px;
-    background: #f8f6f1;
+    background:#f8f6f1;
     color: #1d2b4f;
     font: inherit;
     font-weight: 500;
