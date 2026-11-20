@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
+import './Login.css';
 
 interface LoginProps {
     onAuthSuccess: (username: string) => void;
@@ -6,95 +7,101 @@ interface LoginProps {
 
 export const Login: React.FC<LoginProps> = ({ onAuthSuccess }) => {
     const [isRegistering, setIsRegistering] = useState(false);
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
-    const [error, setError] = useState("");
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [error, setError] = useState('');
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setError("");
+        setError('');
 
         if (!username.trim() || !password.trim()) {
-            setError("Por favor completa todos los campos.");
+            setError('ERROR: COMPLETA TODOS LOS CAMPOS');
             return;
         }
 
         if (isRegistering && password !== confirmPassword) {
-            setError("Las contraseñas no coinciden.");
+            setError('ERROR: LAS CONTRASEÑAS NO COINCIDEN');
             return;
         }
 
-        try {
-            // Aquí conectarán con su backend (ej. POST /api/auth/login o /register)
-            const endpoint = isRegistering ? "/api/auth/register" : "/api/auth/login";
-            console.log(`Enviando a ${endpoint}:`, { username, password });
-
-            // Simulación de éxito temporal:
-            onAuthSuccess(username);
-        } catch (err) {
-            setError("Error al conectar con el servidor.");
-        }
+        onAuthSuccess(username);
     };
 
     return (
-        <div className="login-container">
-            <h2>{isRegistering ? "Crear Entrenador" : "Iniciar Sesión"}</h2>
-
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="username">Usuario</label>
-                    <input
-                        id="username"
-                        type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        placeholder="Ej. Red99"
-                    />
-                </div>
-
-                <div>
-                    <label htmlFor="password">Contraseña</label>
-                    <input
-                        id="password"
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder="••••••••"
-                    />
-                </div>
-
-                {isRegistering && (
-                    <div>
-                        <label htmlFor="confirmPassword">Confirmar Contraseña</label>
-                        <input
-                            id="confirmPassword"
-                            type="password"
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            placeholder="••••••••"
-                        />
+        <div className="login-wrapper">
+            <div className="pokedex-body">
+                <div className="pokedex-header">
+                    <div className="camera-lens"></div>
+                    <div className="led-lights">
+                        <span className="led red"></span>
+                        <span className="led yellow"></span>
+                        <span className="led green"></span>
                     </div>
-                )}
+                </div>
 
-                {error && <p style={{ color: "red" }}>{error}</p>}
+                <div className="pokedex-screen">
+                    <h2>{isRegistering ? 'NUEVO ENTRENADOR' : 'INICIAR SESIÓN'}</h2>
 
-                <button type="submit">
-                    {isRegistering ? "Registrarse" : "Entrar"}
+                    <form onSubmit={handleSubmit}>
+                        <div className="form-group">
+                            <label htmlFor="username">ID ENTRENADOR</label>
+                            <input
+                                id="username"
+                                type="text"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                placeholder="Ej. AshMostaza67"
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="password">CONTRASEÑA</label>
+                            <input
+                                id="password"
+                                type="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                placeholder="••••••••"
+                            />
+                        </div>
+
+                        {isRegistering && (
+                            <div className="form-group">
+                                <label htmlFor="confirmPassword">CONFIRMAR CONTRASEÑA</label>
+                                <input
+                                    id="confirmPassword"
+                                    type="password"
+                                    value={confirmPassword}
+                                    onChange={(e) => setConfirmPassword(e.target.value)}
+                                    placeholder="••••••••"
+                                />
+                            </div>
+                        )}
+
+                        {error && <p className="error-msg">{error}</p>}
+
+                        <button type="submit" className="btn-pokedex">
+                            {isRegistering ? 'REGISTRAR DATOS' : 'INICIAR POKAPIMON'}
+                        </button>
+                    </form>
+                </div>
+
+                {/* Botón inferior de la carcasa */}
+                <button
+                    type="button"
+                    className="btn-toggle"
+                    onClick={() => {
+                        setIsRegistering(!isRegistering);
+                        setError('');
+                    }}
+                >
+                    {isRegistering
+                        ? 'VOLVER A INICIAR SESIÓN'
+                        : 'REGISTRAR NUEVO ENTRENADOR'}
                 </button>
-            </form>
-
-            <button
-                type="button"
-                onClick={() => {
-                    setIsRegistering(!isRegistering);
-                    setError("");
-                }}
-            >
-                {isRegistering
-                    ? "¿Ya tienes cuenta? Inicia sesión"
-                    : "¿No tienes cuenta? Regístrate"}
-            </button>
+            </div>
         </div>
     );
 };
