@@ -1,3 +1,7 @@
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import Batalla from './pages/Batalla'
+
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { Login } from './pages/Login';
@@ -33,6 +37,12 @@ const App: React.FC = () => {
     </div>
   );
 };
+
+createRoot(document.getElementById('app')!).render(
+  <StrictMode>
+    <Batalla />
+  </StrictMode>,
+)
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
