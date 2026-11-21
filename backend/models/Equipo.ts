@@ -27,4 +27,4 @@ const Equipo=sequelize.define<IEquipo>(
     },
 );
 
-export default {Equipo}
+export default Equipo
