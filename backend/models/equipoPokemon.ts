@@ -1,38 +1,24 @@
-import { DataTypes, Model } from "sequelize";
-import sequelizeConnection from "../conf/database.sequelize.connection";
+export class CreateEquipoDTO {
+    private idUser: number;
 
-const sequelize=sequelizeConnection.getSequelize();
+    private constructor(idUser: number) {
+        this.idUser = idUser;
+    }
 
-interface IEquipoPokemon extends Model{
-    idEquipo:number;
-    pokemonid:number;
-    slot:number;
+    public static create(obj: unknown): CreateEquipoDTO {
+        if (!obj) {
+            throw new Error('equipo cannot be empty');
+        }
+        if (typeof obj !== 'object') {
+            throw new Error('equipo must be an object');
+        }
+
+        const { idUser } = obj as Record<string, unknown>;
+
+        if (typeof idUser !== 'number' || Number.isNaN(idUser) || idUser <= 0) {
+            throw new Error('idUser is required');
+        }
+
+        return new CreateEquipoDTO(idUser);
+    }
 }
-
-const Equipo=sequelize.define<IEquipoPokemon>(
-    "EquipoPokemon",
-    {
-        idEquipo:{
-            type: DataTypes.INTEGER,
-            autoIncrement: true,
-            references: {
-                model: 'Equipo',
-                key: 'id',
-            }
-        },
-        pokemonid:{
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            references: {
-                model: 'Pokemon',
-                key: 'id',
-            }
-        },
-        slot:{
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
-    },
-);
-
-export default {Equipo}
