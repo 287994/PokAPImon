@@ -24,7 +24,7 @@ const Equipo=sequelize.define<IEquipoPokemon>(
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: 'Users',
+                model: 'Pokemon',
                 key: 'id',
             }
         },
