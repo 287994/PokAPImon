@@ -1,10 +1,12 @@
 export class CreateUserDTO{
     private name: string;
     private email: string;
+    private contrasenia:string;
 
-    private constructor(name: string, email: string){
+    private constructor(name: string, email: string, contrasenia: string){
         this.name = name;
         this.email = email;
+        this.contrasenia = contrasenia;
     }
 
     public static create(obj: unknown): CreateUserDTO{
@@ -15,9 +17,13 @@ export class CreateUserDTO{
             throw new Error('user must be an object');
         }
 
-        const { name, email } = obj as Record<string, unknown>;
+        const { name, email, contrasenia } = obj as Record<string, unknown>;
 
         if (!name || typeof name !== 'string' || !name.trim()){
+            throw new Error('name is required');
+        }
+
+        if (!contrasenia || typeof contrasenia !== 'string' || !contrasenia.trim()){
             throw new Error('name is required');
         }
 
@@ -32,6 +38,6 @@ export class CreateUserDTO{
             throw new Error('email is required');
         }
 
-        return new CreateUserDTO(name.trim(), email.trim());
+        return new CreateUserDTO(name.trim(), email.trim(), contrasenia.trim());
     }
 }

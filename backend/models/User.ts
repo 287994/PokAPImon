@@ -34,6 +34,7 @@ const User=sequelize.define<IUser>(
         puntaje: {
             type: DataTypes.INTEGER,
             allowNull: false,
+            defaultValue: 0,
         },
     },
         {

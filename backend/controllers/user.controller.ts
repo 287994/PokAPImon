@@ -1,6 +1,7 @@
 import type {Request, Response} from 'express'
 import {User} from "../models";
 import { CreateUserDTO } from "../dtos/User/CreateUserDTO";
+import { ResponseUserDTO } from "../dtos/User/ResponseUserDTO";
 import { UpdateUserDTO } from "../dtos/User/UpdateUserDTO";
 
 export class UserController{
@@ -23,6 +24,19 @@ export class UserController{
             
             return res.status(200).json({plainText});
 
+        } catch (error) {
+            return res.status(500).json({message: "internal server error"});
+        }
+    }
+
+    public async getMostScored(req:Request,res:Response){
+        try {
+            const users=await User.findAll({
+                order:[["puntaje","DESC"]],
+                limit: 10,
+            }); 
+            return res.status(200).json(users.map(u=>ResponseUserDTO.create(u)));
+        
         } catch (error) {
             return res.status(500).json({message: "internal server error"});
         }
