@@ -7,15 +7,27 @@ import ReactDOM from 'react-dom/client';
 import { Login } from './pages/Login';
 import './style.css';
 
+import MenuSeleccion, { type OpcionMenu } from './pages/seleccion';
+import { SeleccionEquipo } from './pages/SeleccionEquipo';
+import { ArmarEquipo } from './pages/ArmarEquipo';
+import type { EquipoGuardado } from './services/equiposService';
+
+type Vista = 'menu' | 'seleccion-equipo' | 'armar-equipo' | 'batalla';
+
 const App: React.FC = () => {
   // Revisa si hay un usuario guardado en localStorage al abrir la página
   const [user, setUser] = useState<string | null>(() => {
     return localStorage.getItem('pokapimon_user');
   });
+  const [vista, setVista] = useState<Vista>('menu');
+  const [modoBatalla, setModoBatalla] = useState<OpcionMenu>('contra-ia');
+  const [equipoAEditar, setEquipoAEditar] = useState<EquipoGuardado | null>(null);
+  const [, setEquipoElegido] = useState<EquipoGuardado | null>(null);
 
   const handleLoginSuccess = (username: string) => {
     localStorage.setItem('pokapimon_user', username);
     setUser(username);
+    setVista('menu');
   };
 
   const handleLogout = () => {
@@ -28,23 +40,79 @@ const App: React.FC = () => {
     return <Login onAuthSuccess={handleLoginSuccess} />;
   }
 
+  const handleElegirMenu = (opcion: OpcionMenu) => {
+    setModoBatalla(opcion);
+    setEquipoAEditar(null);
+    setVista('seleccion-equipo');
+  };
+
+  if (vista === 'armar-equipo') {
+    return (
+      <ArmarEquipo
+        idUser={user}
+        equipoAEditar={equipoAEditar}
+        onGuardado={() => {
+          setEquipoAEditar(null);
+          setVista('seleccion-equipo');
+        }}
+        onCancelar={() => {
+          setEquipoAEditar(null);
+          setVista('seleccion-equipo');
+        }}
+      />
+    );
+  }
+
+  if (vista === 'seleccion-equipo') {
+    const esSoloGestion = modoBatalla === 'crear-equipo';
+    return (
+      <SeleccionEquipo
+        idUser={user}
+        tituloContexto={
+          esSoloGestion
+            ? 'GESTIONAR MIS EQUIPOS'
+            : 'ELIGE UN EQUIPO PARA COMBATIR'
+        }
+        permitirCombate={!esSoloGestion}
+        onSeleccionarParaBatalla={(equipo) => {
+          setEquipoElegido(equipo);
+          setVista('batalla');
+        }}
+        onCrearNuevo={() => {
+          setEquipoAEditar(null);
+          setVista('armar-equipo');
+        }}
+        onEditarEquipo={(equipo) => {
+          setEquipoAEditar(equipo);
+          setVista('armar-equipo');
+        }}
+        onVolver={() => setVista('menu')}
+      />
+    );
+  }
+
+  if (vista === 'batalla') {
+    return (
+      <Batalla
+        entrenador1={user}
+        entrenador2={modoBatalla === 'contra-ia' ? 'CPU' : 'Rival'}
+      />
+    );
+  }
+
   // Si ya inició sesión, muestra la pantalla principal
   return (
-    <div style={{ padding: '2rem', fontFamily: 'sans-serif' }}>
-      <h1>¡Bienvenido, Entrenador {user}!</h1>
-      <p>Ya estás dentro de PokAPImon.</p>
-      <button onClick={handleLogout}>Cerrar Sesión</button>
-    </div>
+    <MenuSeleccion
+        onElegir={handleElegirMenu}
+        onCerrarSesion={handleLogout}
+    />
   );
 };
 
-createRoot(document.getElementById('app')!).render(
-  <StrictMode>
-    <Batalla />
-  </StrictMode>,
-)
+const contenedor =
+  document.getElementById('root') || document.getElementById('app');
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+ReactDOM.createRoot(contenedor!).render(
   <React.StrictMode>
     <App />
   </React.StrictMode>

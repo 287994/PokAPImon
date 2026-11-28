@@ -8,7 +8,6 @@ const opciones: {
   id: OpcionMenu;
   titulo: string;
   descripcion: string;
-  icono: string;
   fondo: string;
   texto: string;
 }[] = [
@@ -16,7 +15,6 @@ const opciones: {
     id: "crear-sala",
     titulo: "Empezar sala PVP",
     descripcion: "Crea una sala y espera a tu rival",
-    icono: "",
     fondo: "#d7263d",
     texto: "#ffffff",
   },
@@ -24,7 +22,6 @@ const opciones: {
     id: "unirse-sala",
     titulo: "Unirse a sala PVP",
     descripcion: "Entra con el código de una sala",
-    i
     fondo: "#1d2b4f",
     texto: "#ffffff",
   },
@@ -32,7 +29,6 @@ const opciones: {
     id: "contra-ia",
     titulo: "Luchar contra la IA",
     descripcion: "Practica contra la máquina",
-    icono: "🤖",
     fondo: "#1f7a6f",
     texto: "#ffffff",
   },
@@ -40,7 +36,6 @@ const opciones: {
     id: "crear-equipo",
     titulo: "Crear equipo",
     descripcion: "Arma tu equipo de Pokémon",
-    icono: "👥",
     fondo: "#f4b942",
     texto: "#1d2b4f",
   },
@@ -116,7 +111,6 @@ export default function MenuSeleccion({
             style={{ background: op.fondo, color: op.texto }}
             onClick={() => onElegir(op.id)}
           >
-            <span className="menu__icono" aria-hidden="true">{op.icono}</span>
             <span className="menu__titulo">{op.titulo}</span>
             <span className="menu__desc">{op.descripcion}</span>
           </button>

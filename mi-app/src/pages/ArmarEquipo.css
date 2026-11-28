@@ -1,0 +1,305 @@
+.armar-page {
+    min-height: 100vh;
+    background-color: #0f172a;
+    color: #f8fafc;
+    font-family: ui-monospace, Consolas, monospace;
+    padding: 1.25rem;
+}
+
+.armar-container {
+    max-width: 1120px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.armar-topbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    background-color: #dc0a2d;
+    border: 4px solid #8b0000;
+    border-radius: 14px;
+    padding: 0.9rem 1.25rem;
+}
+
+.armar-topbar h1 {
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+.slots-bandeja {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.75rem;
+    background-color: #1e293b;
+    border: 3px solid #334155;
+    border-radius: 14px;
+    padding: 1rem;
+}
+
+.slot-box {
+    background-color: #0f172a;
+    border: 2px solid #334155;
+    border-radius: 10px;
+    padding: 0.6rem;
+    min-height: 115px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    transition: border-color 0.15s, transform 0.1s;
+}
+
+.slot-box.activo {
+    border-color: #f4b942;
+    box-shadow: 0 0 0 2px rgba(244, 185, 66, 0.35);
+}
+
+.slot-numero {
+    position: absolute;
+    top: 6px;
+    left: 8px;
+    font-size: 0.7rem;
+    color: #94a3b8;
+    font-weight: bold;
+}
+
+.slot-quitar {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    width: 20px;
+    height: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.slot-nombre {
+    font-size: 0.78rem;
+    margin-top: 4px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.armar-workspace {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 1.25rem;
+}
+
+.pokedex-panel,
+.inspector-panel {
+    background-color: #1e293b;
+    border: 3px solid #334155;
+    border-radius: 14px;
+    padding: 1rem;
+}
+
+.filtros-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    margin-bottom: 1rem;
+}
+
+.buscador-input {
+    padding: 0.6rem 0.8rem;
+    border-radius: 8px;
+    border: 2px solid #475569;
+    background-color: #0f172a;
+    color: #4ade80;
+    font-family: inherit;
+}
+
+.buscador-input:focus {
+    outline: none;
+    border-color: #38bdf8;
+}
+
+.tipos-filtros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.chip-filtro {
+    padding: 0.3rem 0.65rem;
+    border-radius: 999px;
+    border: 1px solid #475569;
+    background-color: #0f172a;
+    color: #cbd5e1;
+    font-family: inherit;
+    font-size: 0.78rem;
+    cursor: pointer;
+}
+
+.chip-filtro.seleccionado {
+    background-color: #38bdf8;
+    color: #0f172a;
+    font-weight: bold;
+    border-color: #38bdf8;
+}
+
+.pokedex-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
+    gap: 0.75rem;
+    max-height: 440px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.poke-card {
+    background-color: #0f172a;
+    border: 2px solid #334155;
+    border-radius: 10px;
+    padding: 0.65rem 0.4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    cursor: pointer;
+    color: inherit;
+    font-family: inherit;
+    transition: transform 0.12s, border-color 0.15s;
+}
+
+.poke-card:hover,
+.poke-card.inspeccionado {
+    border-color: #38bdf8;
+    transform: translateY(-2px);
+}
+
+.poke-tipos {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.tag-tipo {
+    font-size: 0.65rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.tipo-Normal {
+    background-color: #64748b;
+}
+
+.tipo-Planta {
+    background-color: #16a34a;
+}
+
+.tipo-Fuego {
+    background-color: #ea580c;
+}
+
+.tipo-Agua {
+    background-color: #0284c7;
+}
+
+.tipo-Eléctrico {
+    background-color: #ca8a04;
+}
+
+.inspector-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background-color: #0f172a;
+    padding: 0.8rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.stats-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+}
+
+.stat-fila {
+    display: grid;
+    grid-template-columns: 58px 32px 1fr;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.78rem;
+}
+
+.stat-barra-bg {
+    height: 8px;
+    background-color: #0f172a;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.stat-barra-fill {
+    height: 100%;
+    background-color: #4ade80;
+}
+
+.movs-lista {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.45rem;
+    margin-bottom: 1rem;
+}
+
+.mov-item {
+    background-color: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 6px;
+    padding: 0.45rem;
+    font-size: 0.75rem;
+}
+
+.btn-agregar-slot {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #2563eb;
+    color: #ffffff;
+    border: 2px solid #1d4ed8;
+    border-bottom-width: 4px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-guardar-equipo {
+    background-color: #22c55e;
+    color: #052e16;
+    border-color: #15803d;
+}
+
+.btn-guardar-equipo:disabled {
+    background-color: #475569;
+    color: #94a3b8;
+    border-color: #334155;
+    cursor: not-allowed;
+}
+
+@media (max-width: 850px) {
+    .armar-workspace {
+        grid-template-columns: 1fr;
+    }
+
+    .slots-bandeja {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
