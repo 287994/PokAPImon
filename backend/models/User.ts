@@ -6,7 +6,9 @@ const sequelize=sequelizeConnection.getSequelize();
 interface IUser extends Model {
     idUser:number,
     name:string
+    contrasenia:string;
     email:string,
+    puntaje:number
 }
 
 const User=sequelize.define<IUser>(
@@ -25,10 +27,19 @@ const User=sequelize.define<IUser>(
             type: DataTypes.STRING,
             allowNull: false,
         },
+        contrasenia: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        puntaje: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            defaultValue: 0,
+        },
     },
         {
             timestamps: true
         },
 );
 
-export default {User}
+export default User
