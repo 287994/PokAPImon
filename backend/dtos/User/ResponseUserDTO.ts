@@ -1,4 +1,4 @@
-export class CreateUserDTO{
+export class ResponseUserDTO{
     private name: string;
     private puntaje: string;
 
@@ -7,7 +7,7 @@ export class CreateUserDTO{
         this.puntaje = puntaje;
     }
 
-    public static create(obj: unknown): CreateUserDTO{
+    public static create(obj: unknown): ResponseUserDTO{
         if (!obj) {
             throw new Error('user cannot be empty');
         }
